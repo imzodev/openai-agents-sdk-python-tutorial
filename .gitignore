@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.env
+.env.*
+venv/
+env/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# VSCode
+.vscode/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# Otros
+*.sqlite3
+*.db
+
+# Archivos de configuración de usuario
+*.local
+*.history
+
+# Claves/API (por seguridad, nunca subas tus claves)
+openai_api_key.txt
