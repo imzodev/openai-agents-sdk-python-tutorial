@@ -1,4 +1,5 @@
 import os
+from agents.mcp import MCPServerStdio
 from dotenv import load_dotenv
 from agents import Agent, Runner
 from openai import AsyncOpenAI
@@ -20,15 +21,25 @@ async def main():
     set_default_openai_client(client=client, use_for_tracing=False)
     set_default_openai_api("chat_completions")
     set_tracing_disabled(True)
+    
+    async with MCPServerStdio(
+        params={
+            "command": "npx",
+            "args": ["@playwright/mcp@latest", "--headless", "--viewport-size=1720,920"],
+        }
+    ) as server:
+        tools = await server.list_tools()
+        # print([tool.name for tool in tools])
 
-    agent = Agent(
-        name="Assistant",
-        instructions="Eres un asistente que responde en español",
-        model=MODEL_NAME,
-    )
+        agent = Agent(
+        name="Experto en SEO",
+            instructions="Eres un experto navegando y extrayendo información para formatearla en un JSON estructurado.",
+            model=MODEL_NAME,
+            mcp_servers=[server],
+        )
 
-    result = await Runner.run(agent, "¿Quien eres? De que compañía eres?")
-    print(result.final_output)
+        result = await Runner.run(agent, "Ve a esta direccion https://www.bing.com y busca 'mecánico en medellin'. Despues da click en Mapas. Dame la informacion que veas")
+        print(result.final_output)
 
     
 if __name__ == "__main__":
