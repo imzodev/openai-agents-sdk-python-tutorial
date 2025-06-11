@@ -21,13 +21,32 @@ Es agnóstico de proveedor: soporta tanto APIs de OpenAI como más de 100 otros 
 - Validación de entradas/salidas (guardrails).
 - Trazabilidad y visualización de flujos.
 
-## Instalación
+### Instalación básica
 
 Requisitos: Python 3.8+
 
-```bash
-pip install openai-agents
-```
+1. **Crear un entorno virtual** (recomendado):
+   ```bash
+   # En Linux/MacOS
+   python -m venv vtemp
+   source vtemp/bin/activate
+
+   # En Windows
+   # python -m venv vtemp
+   # vtemp\Scripts\activate
+   ```
+
+2. **Instalar dependencias** desde requirements.txt:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+   Esto instalará todas las dependencias necesarias, incluyendo:
+   - `openai-agents`
+   - `python-dotenv`
+   - Soporte para LiteLLM
+
+### Soporte adicional
 
 Para soporte de voz:
 
@@ -35,9 +54,46 @@ Para soporte de voz:
 pip install 'openai-agents[voice]'
 ```
 
-## Configuración de la API Key
+## Configuración de proveedores de IA
 
-Antes de ejecutar los ejemplos, asegúrate de definir tu clave de API de OpenAI:
+### Configuración del archivo .env
+
+1. Copia el archivo de ejemplo `.env.example` a `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Edita el archivo `.env` con tus credenciales según el proveedor que desees usar:
+
+   #### Google GenAI (configuración predeterminada)
+   ```bash
+   LLM_API_PROVIDER=google-genai
+   LLM_API_KEY=TU_API_KEY_DE_GOOGLE
+   LLM_MODEL=gemini-2.5-flash-preview-04-17
+   LLM_API_URL=https://generativelanguage.googleapis.com/v1beta/openai/
+   ```
+
+   #### Claude (Anthropic)
+   ```bash
+   LLM_API_PROVIDER=anthropic
+   LLM_API_KEY=TU_API_KEY_DE_ANTHROPIC
+   LLM_MODEL=claude-3-opus-20240229
+   LLM_API_URL=https://api.anthropic.com/v1/
+   ```
+
+   #### DeepSeek
+   ```bash
+   LLM_API_PROVIDER=deepseek
+   LLM_API_KEY=TU_API_KEY_DE_DEEPSEEK
+   LLM_MODEL=deepseek-chat
+   LLM_API_URL=https://api.deepseek.com/v1
+   ```
+
+3. Asegúrate de que solo una opción esté descomentada a la vez en el archivo `.env`.
+
+### Instalación de dependencias específicas por proveedor
+
+Dependiendo del proveedor que elijas, podrías necesitar instalar paquetes adicionales:
 
 ```bash
 export OPENAI_API_KEY=sk-...

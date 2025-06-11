@@ -3,9 +3,11 @@ __pycache__/
 *.py[cod]
 *.egg-info/
 .env
-.env.*
+.env.local
 venv/
 env/
+vtemporal/
+vtemp/
 
 # Jupyter Notebooks
 .ipynb_checkpoints/
